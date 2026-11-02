@@ -6,7 +6,6 @@
 #include <vector>
 
 using namespace std;
-
 struct structKata {
     double skor;
     // int jumlahKata;
@@ -85,8 +84,7 @@ structKata struckMaker(string kata) {
     return kataDalamStruct;
 }
 
-int main() {
-
+string readFile(string fileTxt) {
     // function 1 membaca file
     ifstream file("example.txt");
     string text;
@@ -101,11 +99,13 @@ int main() {
     } else {
         cout << "Gagal membuka file" << endl;
     }
+    return text;
+}
 
-    // function 2 preprocess kata
+string preprocesText(string textAfterReadFile) {
     string preproces = "";
     bool lastSpace = false;
-    for (char c : text) {
+    for (char c : textAfterReadFile) {
         if(ispunct(c) || c == '\n' || isdigit(c)) {
             if (c == '\n' || c == '-') {
                 c = ' ';
@@ -129,6 +129,15 @@ int main() {
         preproces += c;
     }
     // cout << preproces;
+    return preproces;
+}
+
+int main() {
+    // function 1 membaca file
+    string text = readFile("example.txt");
+
+    // function 2 preprocess kata
+    string preproces = preprocesText(text);
 
     // function 3 membuat struct dari setiap kata untuk menyimpan kata, panjangKata dan skor lalu memasukkan ke dalam array
     string word;
